@@ -17,6 +17,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost").split(",")
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 
 # Application definition
 
@@ -121,4 +123,5 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 LOGIN_URL = '/accounts/login'
 LOGIN_REDIRECT_URL = '/tweet/'
 LOGOUT_URL = '/tweet/'
+
 
