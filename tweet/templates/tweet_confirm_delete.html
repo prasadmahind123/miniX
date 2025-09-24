@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+
+{% block title %}Home - miniX{% endblock %}
+
+{% block content %}
+    <h1 class = "text-white text-center">Do you really want to delete this tweet ? </h1>
+    <form  method="post">
+        {% csrf_token %}
+        <button class = 'btn btn-danger'>Delete</button>
+        <a href="{% url 'tweet_list' %}" class = 'btn btn-secondary'>Cancel</a>
+    </form>
+{% endblock %}

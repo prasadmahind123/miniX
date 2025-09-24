@@ -1,0 +1,63 @@
+{% extends 'layout.html' %}
+
+{% block title %}Home - miniX{% endblock %}
+
+{% block content %}
+
+    <div class="d-flex justify-content-end m-4">
+        <a class="btn btn-outline-info" href="{% url 'tweet_create' %}">
+            ➕ Create a Tweet
+        </a>
+    </div>
+
+    {% if query %}
+        <p class="text-center text-info mb-4">
+            Showing results for: <strong>{{ query }}</strong>
+        </p>
+    {% endif %}
+
+    <div class="container">
+        {% for tweet in tweets %}
+        <div class="card mb-4 shadow-lg border-0 bg-dark text-light " >
+            <div class="row g-0">
+                <!-- 🖼 Tweet Image -->
+                {% if tweet.photo %}
+                <div class="col-md-4 d-flex align-items-center">
+                    <img src="{{ tweet.photo.url }}" class="img-fluid rounded-start p-2" alt="Tweet photo">
+                </div>
+                {% endif %}
+
+                <!-- 📄 Tweet Content -->
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold text-primary">
+                            {{ tweet.user.username }}
+                        </h5>
+                        <p class="card-text">
+                            {{ tweet.text }}
+                        </p>
+                        <p class="card-text">
+                            <small class="text-secondary">
+                                {{ tweet.time_since_created }}
+                            </small>
+                        </p>
+
+                        {% if tweet.user == user %}
+                        <div class="d-flex gap-2">
+                            <a href="{% url 'tweet_edit' tweet.id %}" class="btn btn-sm btn-outline-info">
+                                ✏️ Edit
+                            </a>
+                            <a href="{% url 'tweet_delete' tweet.id %}" class="btn btn-sm btn-outline-danger">
+                                🗑 Delete
+                            </a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+            <p class="text-center text-muted">No tweets available.</p>
+        {% endfor %}
+    </div>
+{% endblock %}
